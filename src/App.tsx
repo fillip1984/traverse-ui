@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type BuildType = "maven-project" | "gradle-project";
@@ -11,8 +10,6 @@ interface ProjectConfig {
 }
 
 const App = () => {
-  const [springInitializrUrl, setSpringInitializrUrl] = useState("");
-
   const {
     register,
     handleSubmit,
@@ -26,14 +23,10 @@ const App = () => {
     },
   });
   const onSubmit: SubmitHandler<ProjectConfig> = (formData) => {
-    setSpringInitializrUrl(
-      `https://start.spring.io/#!type=${formData.buildType}&language=java&platformVersion=3.0.0-SNAPSHOT&packaging=jar&jvmVersion=17&groupId=${formData.groupId}&artifactId=${formData.artifactId}&name=${formData.artifactId}&description=${formData.description}&packageName=${formData.groupId}.${formData.artifactId}&dependencies=devtools,lombok,web,security,data-jpa,h2,validation,actuator`
+    window.open(
+      `https://start.spring.io/#!type=${formData.buildType}&language=java&platformVersion=3.0.0-SNAPSHOT&packaging=jar&jvmVersion=17&groupId=${formData.groupId}&artifactId=${formData.artifactId}&name=${formData.artifactId}&description=${formData.description}&packageName=${formData.groupId}.${formData.artifactId}&dependencies=devtools,lombok,web,security,data-jpa,h2,validation,actuator`,
+      "_blank"
     );
-    handleGenerateProject();
-  };
-
-  const handleGenerateProject = () => {
-    window.open(springInitializrUrl, "_blank");
   };
 
   return (
